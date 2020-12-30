@@ -1,0 +1,25 @@
+{
+  "types": {
+    "EIP712Domain": [
+      { "name": "name", "type": "string" },
+      { "name": "version", "type": "string" },
+      { "name": "chainId", "type": "uint256" },
+      { "name": "salt", "type": "string" }
+    ],
+    "ContactInfo": [
+      { "name": "email", "type": "string" },
+      { "name": "telegram", "type": "string" }
+    ]
+  },
+  "domain": {
+    "name": "Everstake ETH2 Staker",
+    "chainId": 3,
+    "version": "1",
+    "salt": "0x1122334455667788990011223344556677889900112233445566778899001122"
+  },
+  "primaryType": "ContactInfo",
+  "message": {
+    "email": "test@email.com",
+    "telegram": "telegramHandle"
+  }
+}
