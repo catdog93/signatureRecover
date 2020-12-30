@@ -1,12 +1,10 @@
 package main
 
 import (
-	"encoding/hex"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/crypto"
 	signer "github.com/ethereum/go-ethereum/signer/core"
-	"log"
 )
 
 const (
@@ -46,28 +44,29 @@ var (
 )
 
 func main() {
-	//hash := crypto.Keccak256Hash(data)
 	typedDataHash, _ := signerData.HashStruct(signerData.PrimaryType, signerData.Message)
 	domainSeparator, _ := signerData.HashStruct("EIP712Domain", signerData.Domain.Map())
 
 	rawData := []byte(fmt.Sprintf("\x19\x01%s%s", string(domainSeparator), string(typedDataHash)))
 	challengeHash := crypto.Keccak256Hash(rawData)
 
-	sigBytes, err := hex.DecodeString(Signature)
-	if err != nil {
-		log.Print(err)
-	}
-
-	sigBytes[64] -= 27
-
-	sigPublicKey, err := crypto.SigToPub(challengeHash.Bytes(), sigBytes)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(sigPublicKey)
-
-	sigAddress := crypto.PubkeyToAddress(*sigPublicKey)
-
-	fmt.Println(sigAddress.String())
-	fmt.Println("expected address:", Address)
+	fmt.Println(challengeHash) // 0xd18bdc83fc7b8f219358e084d8db9a6284b2b9577d7ec9246d8560965c453d3e
+	fmt.Println("0x" + "5f8e30e1754bb3b1932caed72165313bea2b3e012d9f9eb948815714d63ff8e1")
+	//sigBytes, err := hex.DecodeString(Signature)
+	//if err != nil {
+	//	log.Print(err)
+	//}
+	//
+	//sigBytes[64] -= 27
+	//
+	//sigPublicKey, err := crypto.SigToPub(challengeHash.Bytes(), sigBytes)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//fmt.Println(sigPublicKey)
+	//
+	//sigAddress := crypto.PubkeyToAddress(*sigPublicKey)
+	//
+	//fmt.Println(sigAddress.String())
+	//fmt.Println("expected address:", Address)
 }
