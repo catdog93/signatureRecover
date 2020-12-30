@@ -18,10 +18,9 @@ const (
 var (
 	signerData = signer.TypedData{
 		Types: signer.Types{
-			"Challenge": []signer.Type{
-				{Name: "address", Type: "address"},
-				{Name: "nonce", Type: "string"},
-				{Name: "timestamp", Type: "string"},
+			"ContactInfo": []signer.Type{
+				{Name: "email", Type: "string"},
+				{Name: "telegram", Type: "string"},
 			},
 			"EIP712Domain": []signer.Type{
 				{Name: "name", Type: "string"},
@@ -52,9 +51,9 @@ func main() {
 	challengeHash := crypto.Keccak256Hash(rawData)
 
 	fmt.Println(hex.EncodeToString(domainSeparator)) // 710d7037aaaea992212008b33f833af7babbbfa7da895be1f7b398a69cfe2f77
-	fmt.Println(hex.EncodeToString(typedDataHash))   // empty
+	fmt.Println(hex.EncodeToString(typedDataHash))   // 4ec1628d891f1a5d124d4e9c9a2adea6cb3f11bd23ae4bf49a6c92b58035b12f
 
-	fmt.Println(rawData) // 1901710d7037aaaea992212008b33f833af7babbbfa7da895be1f7b398a69cfe2f77
+	fmt.Println(hex.EncodeToString(rawData)) // 1901710d7037aaaea992212008b33f833af7babbbfa7da895be1f7b398a69cfe2f774ec1628d891f1a5d124d4e9c9a2adea6cb3f11bd23ae4bf49a6c92b58035b12f
 	fmt.Println("19014784d97a8aa5c03e35b64de520dc7ace934747e82df4c83f427da3c3751af1a34ec1628d891f1a5d124d4e9c9a2adea6cb3f11bd23ae4bf49a6c92b58035b12f")
 
 	fmt.Println(challengeHash) // 0xd18bdc83fc7b8f219358e084d8db9a6284b2b9577d7ec9246d8560965c453d3e
