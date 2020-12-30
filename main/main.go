@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -49,6 +50,9 @@ func main() {
 
 	rawData := []byte(fmt.Sprintf("\x19\x01%s%s", string(domainSeparator), string(typedDataHash)))
 	challengeHash := crypto.Keccak256Hash(rawData)
+
+	fmt.Println(hex.EncodeToString(rawData)) // 1901710d7037aaaea992212008b33f833af7babbbfa7da895be1f7b398a69cfe2f77
+	fmt.Println("19014784d97a8aa5c03e35b64de520dc7ace934747e82df4c83f427da3c3751af1a34ec1628d891f1a5d124d4e9c9a2adea6cb3f11bd23ae4bf49a6c92b58035b12f")
 
 	fmt.Println(challengeHash) // 0xd18bdc83fc7b8f219358e084d8db9a6284b2b9577d7ec9246d8560965c453d3e
 	fmt.Println("0x" + "5f8e30e1754bb3b1932caed72165313bea2b3e012d9f9eb948815714d63ff8e1")
