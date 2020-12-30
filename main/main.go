@@ -1,12 +1,10 @@
 package main
 
 import (
-	"encoding/hex"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common/math"
 	"github.com/ethereum/go-ethereum/crypto"
 	signer "github.com/ethereum/go-ethereum/signer/core"
-	"log"
 )
 
 const (
@@ -19,24 +17,25 @@ const (
 var (
 	signerData = signer.TypedData{
 		Types: signer.Types{
-			"Challenge": []signer.Type{
-				{Name: "address", Type: "address"},
-				{Name: "nonce", Type: "string"},
-				{Name: "timestamp", Type: "string"},
+			"ContactInfo": []signer.Type{
+				{Name: "email", Type: "string"},
+				{Name: "telegram", Type: "string"},
 			},
 			"EIP712Domain": []signer.Type{
 				{Name: "name", Type: "string"},
 				{Name: "chainId", Type: "uint256"},
 				{Name: "version", Type: "string"},
-				{Name: "salt", Type: "string"},
+				{Name: "verifyingContract", Type: "address"},
+				{Name: "salt", Type: "bytes32"},
 			},
 		},
 		PrimaryType: "ContactInfo",
 		Domain: signer.TypedDataDomain{
-			Name:    "Everstake ETH2 Staker",
-			Version: "1",
-			Salt:    "0x1122334455667788990011223344556677889900112233445566778899001122",
-			ChainId: math.NewHexOrDecimal256(3),
+			Name:              "Everstake ETH2 Staker",
+			Version:           "1",
+			VerifyingContract: "0x4aefd9A9BF4d0F19CD217ddB6467F3ad1e0A21FC",
+			Salt:              "0x1122334455667788990011223344556677889900112233445566778899001122",
+			ChainId:           math.NewHexOrDecimal256(3),
 		},
 		Message: signer.TypedDataMessage{
 			"email":    "test@email.com",
@@ -46,28 +45,12 @@ var (
 )
 
 func main() {
-	//hash := crypto.Keccak256Hash(data)
 	typedDataHash, _ := signerData.HashStruct(signerData.PrimaryType, signerData.Message)
 	domainSeparator, _ := signerData.HashStruct("EIP712Domain", signerData.Domain.Map())
 
 	rawData := []byte(fmt.Sprintf("\x19\x01%s%s", string(domainSeparator), string(typedDataHash)))
 	challengeHash := crypto.Keccak256Hash(rawData)
 
-	sigBytes, err := hex.DecodeString(Signature)
-	if err != nil {
-		log.Print(err)
-	}
-
-	sigBytes[64] -= 27
-
-	sigPublicKey, err := crypto.SigToPub(challengeHash.Bytes(), sigBytes)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(sigPublicKey)
-
-	sigAddress := crypto.PubkeyToAddress(*sigPublicKey)
-
-	fmt.Println(sigAddress.String())
-	fmt.Println("expected address:", Address)
+	fmt.Println(challengeHash) // 0x225b900e8ed24c6f9910df7d36e6da93e8d1ad7894514df73df1cf07f0053872
+	fmt.Println("0x" + "5f8e30e1754bb3b1932caed72165313bea2b3e012d9f9eb948815714d63ff8e1")
 }

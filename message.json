@@ -4,7 +4,8 @@
       { "name": "name", "type": "string" },
       { "name": "version", "type": "string" },
       { "name": "chainId", "type": "uint256" },
-      { "name": "salt", "type": "string" }
+      { "name": "verifyingContract", "type": "address" },
+      { "name": "salt", "type": "bytes32" }
     ],
     "ContactInfo": [
       { "name": "email", "type": "string" },
@@ -13,8 +14,9 @@
   },
   "domain": {
     "name": "Everstake ETH2 Staker",
-    "chainId": 3,
     "version": "1",
+    "chainId": 3,
+    "verifyingContract": "0x4aefd9A9BF4d0F19CD217ddB6467F3ad1e0A21FC",
     "salt": "0x1122334455667788990011223344556677889900112233445566778899001122"
   },
   "primaryType": "ContactInfo",
