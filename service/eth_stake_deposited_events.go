@@ -15,7 +15,7 @@ import (
 
 const (
 	endpoint          = "api"
-	logStakeDeposited = "TokensClaimed" // monitoring event, manual claim
+	event = "event_name" // monitoring event, manual claim
 
 	precision = 18
 )
@@ -188,9 +188,9 @@ func getEventStakeDeposited(abiBytes []byte) (event abi.Event, err error) {
 	if err != nil {
 		return event, err
 	}
-	event, ok := poolStakeDeposited.Events[logStakeDeposited]
+	event, ok := poolStakeDeposited.Events[event]
 	if !ok {
-		return event, fmt.Errorf("eth Events not found %s in events map", logStakeDeposited)
+		return event, fmt.Errorf("eth Events not found %s in events map", event)
 	}
 	return event, nil
 }
