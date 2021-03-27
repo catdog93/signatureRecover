@@ -1,9 +1,6 @@
 package service
 
 import (
-	"bitbucket.org/everstake/everstake-common/log"
-	"bitbucket.org/everstake/everstake-dashboard/dmodels"
-	"bitbucket.org/everstake/everstake-dashboard/smodels"
 	"encoding/hex"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common/math"

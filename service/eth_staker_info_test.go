@@ -1,7 +1,6 @@
 package service
 
 import (
-	"bitbucket.org/everstake/everstake-dashboard/smodels"
 	"bytes"
 	"github.com/ethereum/go-ethereum/common/math"
 	signer "github.com/ethereum/go-ethereum/signer/core"
